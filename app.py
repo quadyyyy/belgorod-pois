@@ -13,8 +13,9 @@ class MyApp(QWidget):
         self.setWindowTitle('Белгородские достопримечательности')
         self.window_width, self.window_height = 1310, 670
         self.setMinimumSize(self.window_width, self.window_height)
-        self.setWindowIcon(QtGui.QIcon('icon.png'))
-        self.setStyleSheet('background-color: rgb(30, 30, 30)')
+        self.setWindowIcon(QtGui.QIcon('icon.ico'))
+        self.setStyleSheet('background-color: rgb(30, 30, 30); font-size: 35px')
+        #self.setStyleSheet('font-size: 35px')
         self.setWindowFlags(self.windowFlags())
 
 
@@ -24,7 +25,7 @@ class MyApp(QWidget):
 
         # задаем карту / setting map
         coordinate = (50.595694, 36.587375) # задаем координаты стартовой точки
-        mapboxtoken = 'TOKEN'
+        mapboxtoken = 'API TOKEN HERE'
         mapboxurl = 'https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.png?access_token=' + mapboxtoken
 
         # задаем саму карту
@@ -32,7 +33,7 @@ class MyApp(QWidget):
             location=coordinate,
             zoom_start=95,
             tiles=mapboxurl,
-            attr='Тимофей Куприянов'
+            attr='Mapbox'
         )
 
         tooltip = "Кликните для информации"
@@ -40,7 +41,7 @@ class MyApp(QWidget):
         # соборная площадь
         marker = folium.Marker(
             location=[50.595694, 36.587375],
-            popup="<stong>Соборная площадь,\n Центр Белгорода</stong>",
+            popup="<stong>Соборная площадь</stong>",
             tooltip=tooltip )
 
         marker.add_to(m)
@@ -83,16 +84,9 @@ class MyApp(QWidget):
         webView.setHtml(data.getvalue().decode())
         layout.addWidget(webView)
 
-Style = """
-}
-QWidget {
-    font-size: 35px;
-}
-"""
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    app.setStyleSheet(Style)
 
     myApp = MyApp()
     myApp.show()
